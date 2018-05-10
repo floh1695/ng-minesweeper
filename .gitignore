@@ -1,7 +1,6 @@
 # dependencies
 node_modules
 
-
 # misc
 .DS_Store
 npm-debug.log
@@ -9,3 +8,8 @@ npm-debug.log
 # vscode config settings
 .vscode
 
+# Sass
+.sass-cache
+
+# Yarn
+yarn-error.log
