@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "deploy": "surge ./public --domain ng-minesweeper.cbayley.surge.sh",
-    "start": "browser-sync start --server 'public' --files 'public'"
+    "start": "browser-sync start --server --startPath public --files public",
+    "sass": "sass --watch public\\src\\scss:public\\out\\css"
   },
   "dependencies": {
     "browser-sync": "^2.24.4",
@@ -15,5 +16,8 @@
     "stylelint": "^9.2.0",
     "stylelint-config-standard": "^18.2.0",
     "surge": "^0.20.1"
+  },
+  "devDependencies": {
+    "eslint-config-google": "^0.9.1"
   }
 }
