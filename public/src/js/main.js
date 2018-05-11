@@ -5,25 +5,62 @@ const createStamp = stampit.default;
 
 const Cell = createStamp({
     props: {
-        hasBomb: false
+        hasBomb: false,
+        hasFlag: false,
+        hasBeenCLicked: false
     },
     init({ hasBomb = this.hasBomb }) {
         this.hasBomb = hasBomb;
+    },
+    methods: {
+        click() {
+            return this.hasBomb;
+        },
     }
 });
 
 const Board = createStamp({
     props: {
-        inner: null
+        cells: null
     },
     init({ height = 9, width = 9, bombCount = 10 }) {
-        this.inner = [];
+        this.cells = [];
         for (let x = 0; x < height; x++) {
             let nextArray = [];
             for (let y = 0; y < width; y++) {
                 nextArray.push(Cell());
             }
-            this.inner.push(nextArray);
+            this.cells.push(nextArray);
+        }
+    },
+    methods: {
+        click(x, y) {
+            const cell = this.cells[x][y];
+            const hadBomb = cell.click();
+            return hadBomb;
+        },
+        numberAt(x, y) {
+            const cells = [];
+            for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= 1; j++) {
+                    const isCenterCell = (i === 0 && j === 0)
+                    const isRealRow = Boolean(this.cells[x + i]);
+                    if (isCenterCell) { continue; }
+                    if (!isRealRow) { continue; }
+                    const cell = this.cells[x + i][y + j];
+                    console.log({ xy: { x: x + i, y: y + i }, cell });
+                    cells.push(cell);
+                }
+            }
+            console.log(cells);
+            return cells
+                .map(cell => {
+                    if (cell) {
+                        if (cell.hasBomb) { return 1; }
+                    }
+                    return 0;
+                })
+                .reduce((bombs, isBoom) => bombs + isBoom);
         }
     }
 });
@@ -39,7 +76,7 @@ const Printable = createStamp({
 const PrintableBoard = createStamp(Board, Printable, {
     methods: {
         print() {
-            this.inner.forEach(row => {
+            this.cells.forEach(row => {
                 const rowString = row
                     .map(cell => cell.hasBomb ? 'B' : '.')
                     .join('');
@@ -49,13 +86,7 @@ const PrintableBoard = createStamp(Board, Printable, {
     }
 });
 
-const boardSize = 9;
-const board = {};
-for (let i = 0; i < boardSize; i++) {
-    for (let j = 0; j < boardSize; j++) {
-        board[[i, j]]
-    }
-}
+const board = PrintableBoard();
 
 const app = angular
     .module('minesweeperApp', ['ngRoute']);
