@@ -3,6 +3,10 @@
 
 const createStamp = stampit.default;
 
+const randomInt = (cap) => {
+    return Math.floor(Math.random() * cap);
+}
+
 const Cell = createStamp({
     props: {
         hasBomb: false,
@@ -14,6 +18,7 @@ const Cell = createStamp({
     },
     methods: {
         click() {
+            this.hasBeenCLicked = true;
             return this.hasBomb;
         },
     }
@@ -21,7 +26,7 @@ const Cell = createStamp({
 
 const Board = createStamp({
     props: {
-        cells: null
+        cells: null,
     },
     init({ height = 9, width = 9, bombCount = 10 }) {
         this.cells = [];
@@ -32,6 +37,7 @@ const Board = createStamp({
             }
             this.cells.push(nextArray);
         }
+        this.seedBombs(bombCount);
     },
     methods: {
         click(x, y) {
@@ -61,6 +67,18 @@ const Board = createStamp({
                     return 0;
                 })
                 .reduce((bombs, isBoom) => bombs + isBoom);
+        },
+        seedBombs(bombCount) {
+            const height = this.cells.length;
+            const width = this.cells[0].length;
+            console.log({ height, width });
+
+            for (let i = 0; i < bombCount; i++) {
+                const randomX = randomInt(height);
+                const randomY = randomInt(width);
+                const cell = this.cells[randomX][randomY];
+                cell.hasBomb = true;
+            }
         }
     }
 });
