@@ -7,3 +7,28 @@ body {
     min-height: 100%;
     font: 16px / 1 sans-serif;
 }
+
+$board-cell-margin: 0.1em;
+
+.minesweeper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.board {
+    display: flex;
+    flex-direction: row;
+    margin: $board-cell-margin;
+}
+
+.board-row {
+    margin: $board-cell-margin;
+}
+
+$cell-size: 4vw;
+.board-cell {
+    border: .25em solid black;
+    height: $cell-size;
+    width: $cell-size;
+}

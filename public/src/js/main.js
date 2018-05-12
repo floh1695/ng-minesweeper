@@ -41,6 +41,7 @@ const Board = createStamp({
     },
     methods: {
         click(x, y) {
+            console.log('Clicked cell ', {x, y});
             const cell = this.cells[x][y];
             const hadBomb = cell.click();
             return hadBomb;
@@ -131,5 +132,5 @@ app.config(function ($routeProvider) {
 app.controller('minesweeperController',
     function ($scope) {
         console.log('loaded minesweeperController');
-        $scope.array = [1, 2, 3, 4];
+        $scope.board = Board();
     });
