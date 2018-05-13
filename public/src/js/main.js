@@ -11,14 +11,15 @@ const Cell = createStamp({
     props: {
         hasBomb: false,
         hasFlag: false,
-        hasBeenCLicked: false
+        hasBeenClicked: false
     },
     init({ hasBomb = this.hasBomb }) {
         this.hasBomb = hasBomb;
     },
     methods: {
         click() {
-            this.hasBeenCLicked = true;
+            this.hasBeenClicked = true;
+            console.log(this);
             return this.hasBomb;
         },
     }
@@ -55,11 +56,11 @@ const Board = createStamp({
                     if (isCenterCell) { continue; }
                     if (!isRealRow) { continue; }
                     const cell = this.cells[x + i][y + j];
-                    console.log({ xy: { x: x + i, y: y + i }, cell });
+                    // console.log({ xy: { x: x + i, y: y + i }, cell });
                     cells.push(cell);
                 }
             }
-            console.log(cells);
+            // console.log(cells);
             return cells
                 .map(cell => {
                     if (cell) {
@@ -80,6 +81,9 @@ const Board = createStamp({
                 const cell = this.cells[randomX][randomY];
                 cell.hasBomb = true;
             }
+        },
+        cellAt(x, y) {
+            return this.cells[x][y]
         }
     }
 });
@@ -132,5 +136,12 @@ app.config(function ($routeProvider) {
 app.controller('minesweeperController',
     function ($scope) {
         console.log('loaded minesweeperController');
+        $scope.gameOver = false;
         $scope.board = Board();
+        $scope.clickBoard = (x, y) => {
+            if ($scope.gameOver) { return; }
+            board.click(x, y);
+            // $scope.$apply();
+        };
+
     });
