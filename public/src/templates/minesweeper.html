@@ -11,6 +11,10 @@
                     {{board.numberAt($parent.$index, $index)}}
                 <div>
 
+                <div class="ng-hide" ng-hide="board.cellAt($parent.$index, $index).hasBeenClicked">
+                    X
+                </div>
+
             </div>
         </div>
     </div>
