@@ -133,12 +133,17 @@ app.config(function ($routeProvider) {
 //         console.log('loaded main screen');
 //     });
 
+let scope;
 app.controller('minesweeperController',
     function ($scope) {
         console.log('loaded minesweeperController');
+
+        scope = $scope;
+
         $scope.gameOver = false;
         $scope.board = Board();
         $scope.clickBoard = (x, y) => {
+            $scope.gameOver = !$scope.gameOver;
             if ($scope.gameOver) { return; }
             board.click(x, y);
             // $scope.$apply();
