@@ -139,11 +139,19 @@ app.controller('minesweeperController',
 
         scope = $scope;
 
-        $scope.gameOver = false;
-        $scope.board = PrintableBoard({});
         $scope.clickBoard = (x, y) => {
             if ($scope.gameOver) { return; }
             $scope.board.click(x, y);
+            if ($scope.board.cellAt(x, y).hasBomb) {
+                $scope.gameOver = true;
+            }
         };
+
+        $scope.resetGame = () => {
+            $scope.gameOver = false;
+            $scope.board = PrintableBoard();
+        }
+
+        $scope.resetGame();
 
     });

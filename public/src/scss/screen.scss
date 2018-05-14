@@ -15,12 +15,13 @@ $board-cell-margin: 0.1em;
     align-items: center;
 }
 
+$board-size: 80%;
 .board {
     display: flex;
     flex-direction: row;
     margin: $board-cell-margin;
-    max-height: 80%;
-    max-width: 80%;
+    max-height: $board-size;
+    max-width: $board-size;
 }
 
 .board-row {

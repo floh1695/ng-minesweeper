@@ -1,8 +1,6 @@
 <div class="minesweeper">
 
-    <h1>minesweeper</h1>
-
-    
+    <h1>Minesweeper</h1>
 
     <div class="board" ng-repeat="row in board.cells track by $index">
         <div class="board-row" ng-repeat="cell in row track by $index">
@@ -16,5 +14,10 @@
             </div>
 
         </div>
+    </div>
+
+    <div ng-if="gameOver">
+        <h2>The game is over!</h2>
+        <button ng-click="resetGame()">Reset Game</button>
     </div>
 </div>
