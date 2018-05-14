@@ -43,9 +43,10 @@ const Board = createStamp({
         click(x, y) {
             const cell = this.cellAt(x, y);
             const hadBomb = cell.click();
-            console.log('Clicked cell ', {x, y, number: this.numberAt(x, y)});
+            // console.log('Clicked cell ', {x, y, number: this.numberAt(x, y)});
         },
         numberAt(x, y) {
+            // console.log({x, y});
             if (this.cellAt(x, y).hasBomb) { return 'B' }
 
             const cells = [];
@@ -96,7 +97,7 @@ const Printable = createStamp({
     }
 });
 
-const PrintableBoard = createStamp(Board, Printable, {
+const PrintableBoard = Board.compose(Printable, {
     methods: {
         print() {
             this.cells.forEach(row => {

@@ -8,7 +8,7 @@
 
                 <!-- board.cellAt($parent.$index, $index).hasBeenClicked -->
                 <div class="board-cell-data" ng-if="board.cellAt($parent.$index, $index).hasBeenClicked">
-                    {{board.numberAt($parent.$index, $index)}}
+                    {{board.numberAt($parent.$parent.$index, $parent.$index)}}
                 </div>
             </div>
 
