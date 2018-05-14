@@ -42,6 +42,7 @@ const Board = createStamp({
     methods: {
         click(x, y) {
             const cell = this.cellAt(x, y);
+            if (cell.hasBeenClicked) { return; }
             const hadBomb = cell.click();
             // console.log('Clicked cell ', {x, y, number: this.numberAt(x, y)});
         },
@@ -85,6 +86,9 @@ const Board = createStamp({
         },
         cellAt(x, y) {
             return this.cells[x][y]
+        },
+        neighborsOf(x, y) {
+
         }
     }
 });
