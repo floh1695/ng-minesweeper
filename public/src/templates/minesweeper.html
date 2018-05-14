@@ -6,25 +6,12 @@
         <div class="board-row" ng-repeat="cell in row track by $index">
             <div class="board-cell" ng-click="clickBoard($parent.$index, $index)">
 
-                <!-- ({{$parent.$index}},{{$index}}) -->
-                <!-- <div class="board-cell-data" ng-show="board.cellAt($parent.$index, $index).hasBeenClicked">
+                <!-- board.cellAt($parent.$index, $index).hasBeenClicked -->
+                <div class="board-cell-data" ng-if="board.cellAt($parent.$index, $index).hasBeenClicked">
                     {{board.numberAt($parent.$index, $index)}}
-                <div>
-
-                <div ng-hide="board.cellAt($parent.$index, $index).hasBeenClicked">
-                    X
-                </div> -->
-
-                <!-- <div class="board-cell-data" ng-if="board.cellAt($parent.$index, $index).hasBeenClicked">
-                    {{board.numberAt($parent.$index, $index)}}
-                <div> -->
-
-                <div class="board-cell-data" ng-if="gameOver">
-                    {{board.numberAt($parent.$index, $index)}}
-                <div>
-
+                </div>
             </div>
+
         </div>
     </div>
-
 </div>

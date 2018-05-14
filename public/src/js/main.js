@@ -13,15 +13,14 @@ const Cell = createStamp({
         hasFlag: false,
         hasBeenClicked: false
     },
-    init({ hasBomb = this.hasBomb }) {
+    init({ hasBomb = this.hasBomb, hasBeenClicked = this.hasBeenClicked }) {
         this.hasBomb = hasBomb;
+        this.hasBeenClicked = hasBeenClicked;
     },
     methods: {
         click() {
             this.hasBeenClicked = true;
-            console.log(this);
-            return this.hasBomb;
-        },
+        }
     }
 });
 
@@ -34,7 +33,7 @@ const Board = createStamp({
         for (let x = 0; x < height; x++) {
             let nextArray = [];
             for (let y = 0; y < width; y++) {
-                nextArray.push(Cell());
+                nextArray.push(Cell({}));
             }
             this.cells.push(nextArray);
         }
@@ -42,12 +41,13 @@ const Board = createStamp({
     },
     methods: {
         click(x, y) {
-            console.log('Clicked cell ', {x, y});
-            const cell = this.cells[x][y];
+            const cell = this.cellAt(x, y);
             const hadBomb = cell.click();
-            return hadBomb;
+            console.log('Clicked cell ', {x, y, number: this.numberAt(x, y)});
         },
         numberAt(x, y) {
+            if (this.cellAt(x, y).hasBomb) { return 'B' }
+
             const cells = [];
             for (let i = -1; i <= 1; i++) {
                 for (let j = -1; j <= 1; j++) {
@@ -78,7 +78,7 @@ const Board = createStamp({
             for (let i = 0; i < bombCount; i++) {
                 const randomX = randomInt(height);
                 const randomY = randomInt(width);
-                const cell = this.cells[randomX][randomY];
+                const cell = this.cellAt(randomX, randomY);
                 cell.hasBomb = true;
             }
         },
@@ -108,8 +108,6 @@ const PrintableBoard = createStamp(Board, Printable, {
         }
     }
 });
-
-const board = PrintableBoard();
 
 const app = angular
     .module('minesweeperApp', ['ngRoute']);
@@ -141,12 +139,10 @@ app.controller('minesweeperController',
         scope = $scope;
 
         $scope.gameOver = false;
-        $scope.board = Board();
+        $scope.board = PrintableBoard({});
         $scope.clickBoard = (x, y) => {
-            $scope.gameOver = !$scope.gameOver;
             if ($scope.gameOver) { return; }
-            board.click(x, y);
-            // $scope.$apply();
+            $scope.board.click(x, y);
         };
 
     });
