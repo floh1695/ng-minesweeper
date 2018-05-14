@@ -2,8 +2,11 @@
 
     <h1>minesweeper</h1>
 
+    
+
     <div class="board" ng-repeat="row in board.cells track by $index">
         <div class="board-row" ng-repeat="cell in row track by $index">
+
             <div class="board-cell" ng-click="clickBoard($parent.$index, $index)">
 
                 <!-- board.cellAt($parent.$index, $index).hasBeenClicked -->

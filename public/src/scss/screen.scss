@@ -9,7 +9,6 @@ body {
 }
 
 $board-cell-margin: 0.1em;
-
 .minesweeper {
     display: flex;
     flex-direction: column;
@@ -20,6 +19,8 @@ $board-cell-margin: 0.1em;
     display: flex;
     flex-direction: row;
     margin: $board-cell-margin;
+    max-height: 80%;
+    max-width: 80%;
 }
 
 .board-row {
@@ -28,7 +29,11 @@ $board-cell-margin: 0.1em;
 
 $cell-size: 4vw;
 .board-cell {
-    border: .25em solid black;
+    border: .25vw solid black;
     height: $cell-size;
     width: $cell-size;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
